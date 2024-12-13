@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\backend\\AngularApi\\AngularApi.csproj": {}
+    "D:\\FullStack-Hotel\\backend\\AngularApi\\AngularApi.csproj": {}
   },
   "projects": {
-    "D:\\backend\\AngularApi\\AngularApi.csproj": {
+    "D:\\FullStack-Hotel\\backend\\AngularApi\\AngularApi.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\backend\\AngularApi\\AngularApi.csproj",
+        "projectUniqueName": "D:\\FullStack-Hotel\\backend\\AngularApi\\AngularApi.csproj",
         "projectName": "AngularApi",
-        "projectPath": "D:\\backend\\AngularApi\\AngularApi.csproj",
+        "projectPath": "D:\\FullStack-Hotel\\backend\\AngularApi\\AngularApi.csproj",
         "packagesPath": "C:\\Users\\5g\\.nuget\\packages\\",
-        "outputPath": "D:\\backend\\AngularApi\\obj\\",
+        "outputPath": "D:\\FullStack-Hotel\\backend\\AngularApi\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\5g\\AppData\\Roaming\\NuGet\\NuGet.Config",

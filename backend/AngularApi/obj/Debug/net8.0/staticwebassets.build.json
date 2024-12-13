@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "QrpRAbGbg0g0oTswNMXc4qb3oe3YNHXUYUo3oArtxJU=",
+  "Hash": "MS5RwsQ9u6t9zmDkX51YIvQ7oSpT5cbGScOnp/b31qo=",
   "Source": "AngularApi",
   "BasePath": "_content/AngularApi",
   "Mode": "Default",
@@ -10,7 +10,7 @@
     {
       "Name": "AngularApi\\wwwroot",
       "Source": "AngularApi",
-      "ContentRoot": "D:\\backend\\AngularApi\\wwwroot\\",
+      "ContentRoot": "D:\\FullStack-Hotel\\backend\\AngularApi\\wwwroot\\",
       "BasePath": "_content/AngularApi",
       "Pattern": "**"
     }
@@ -55,10 +55,10 @@
       "OriginalItemSpec": "C:\\Users\\5g\\.nuget\\packages\\microsoft.aspnetcore.components.quickgrid\\8.0.10\\staticwebassets\\QuickGrid.razor.js"
     },
     {
-      "Identity": "D:\\backend\\AngularApi\\obj\\Debug\\net8.0\\scopedcss\\bundle\\AngularApi.styles.css",
+      "Identity": "D:\\FullStack-Hotel\\backend\\AngularApi\\obj\\Debug\\net8.0\\scopedcss\\bundle\\AngularApi.styles.css",
       "SourceId": "AngularApi",
       "SourceType": "Computed",
-      "ContentRoot": "D:\\backend\\AngularApi\\obj\\Debug\\net8.0\\scopedcss\\bundle\\",
+      "ContentRoot": "D:\\FullStack-Hotel\\backend\\AngularApi\\obj\\Debug\\net8.0\\scopedcss\\bundle\\",
       "BasePath": "_content/AngularApi",
       "RelativePath": "AngularApi.styles.css",
       "AssetKind": "All",
@@ -71,7 +71,7 @@
       "AssetTraitValue": "ApplicationBundle",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "D:\\backend\\AngularApi\\obj\\Debug\\net8.0\\scopedcss\\bundle\\AngularApi.styles.css"
+      "OriginalItemSpec": "D:\\FullStack-Hotel\\backend\\AngularApi\\obj\\Debug\\net8.0\\scopedcss\\bundle\\AngularApi.styles.css"
     }
   ]
 }

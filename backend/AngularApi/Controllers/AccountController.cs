@@ -32,7 +32,6 @@ namespace AngularApi.Controllers
         private readonly IConfiguration Configuration;
         private readonly IUserService _userService;
         private readonly IEmailService _emailService;
-        //private readonly SignInManager<IdentityUser> _signInManager;
         public AccountController(UserManager<Guest> _userManager, IConfiguration Configuration , IEmailService _emailService )
         {
             userManager = _userManager;

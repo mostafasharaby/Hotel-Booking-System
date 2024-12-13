@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "0a41DlvN+qHctK7f3wng01X/P46vfJNhU+JGUa6Ba0MK2c5lRg/keQNHsKddlfvc/M4IGxDvYK/oVH2WUE1Avw==",
+  "dgSpecHash": "qI08mBRLEUGwYsBPfamhk90JsdgvSQOwUfuOfuNIdYGm8w6ANLJw2BrZuAqtRG/ZSxmRcB/XtmRbLDfDvB5mdg==",
   "success": true,
-  "projectFilePath": "D:\\backend\\AngularApi\\AngularApi.csproj",
+  "projectFilePath": "D:\\FullStack-Hotel\\backend\\AngularApi\\AngularApi.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\5g\\.nuget\\packages\\azure.core\\1.35.0\\azure.core.1.35.0.nupkg.sha512",
     "C:\\Users\\5g\\.nuget\\packages\\azure.identity\\1.10.3\\azure.identity.1.10.3.nupkg.sha512",
