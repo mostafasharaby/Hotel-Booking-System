@@ -1,0 +1,191 @@
+<nav class="py-3 relative z-50 w-full bg-white transition-all duration-500 border-b border-white-100 shadow-md">
+  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <div class="w-full flex  flex-col lg:flex-row">
+      <div class=" flex justify-between  lg:flex-row">
+        <a href="" class="cursor-pointer flex items-center">
+          <img src="/img/logo.svg" class="w-40 h-15" />
+        </a>
+        <button data-collapse-toggle="navbar-default" type="button"
+          class="inline-flex items-center p-2 ml-3 text-sm text-gray-900 rounded-lg lg:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200"
+          aria-controls="navbar-default" aria-expanded="false" (click)="toggleDrawer()">
+          <span class="sr-only">Open main menu</span>
+          <svg *ngIf="!isDrawerOpen" class="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20"
+            xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd"
+              d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
+              clip-rule="evenodd"></path>
+          </svg>
+          <i *ngIf="isDrawerOpen" class="fas fa-times w-6 h-6 duration-300" style="font-size: 24px; "
+            aria-label="Close Icon"></i>
+
+        </button>
+      </div>
+      <div class="hidden w-full lg:flex lg:pl-11 " id="navbar-default">                
+        <ul  class=" lg:flex items-center flex-col mt-3 lg:mt-0 lg:flex-row flex items-center  justify-center lg:flex-1 lg:justify-end">
+
+          <li *ngFor="let item of menulist" [ngClass]="{'me-[250px]': item.title === 'Contact'}" class="mx-2">
+            <a 
+              [routerLink]="item.path" 
+              routerLinkActive="active" 
+              class="text-gray-900 cursor-pointer text-base lg:text-lg font-medium hover:text-[#dfa974] hover:underline transition-all duration-500 mb-2 block lg:mr-6 md:mb-0 lg:text-left text-center">
+              {{ item.title }}
+            </a>
+          </li>
+          
+
+          <li class="ms-[290px] top-nav-menu-item" [routerLink]="['/booking/cart']">
+            <a class="relative mr-4 py-1 flex-col md:flex-row">
+              <i class="cursor-pointer  fas fa-bookmark text-xl text-dark" title="Reservation"></i>
+              
+              <span *ngIf=" nOfItems"
+                class="absolute -top-4 -left-3 inline-flex items-center justify-center w-5 h-5 text-xs font-bold text-white bg-dark rounded-full">
+                {{nOfItems}}
+              </span>
+            </a>
+          </li>
+          <li class="top-nav-menu-item" *ngIf="!isLoggedIn">
+            <a class="py-1 flex-col md:flex-row" [routerLink]="['/auth/login']">
+              <i title="Login" class="fa-regular fa-user text-xl text-dark "></i>
+            </a>
+          </li>   
+                           
+          <li class="mx-2 top-nav-menu-item" *ngIf="isLoggedIn">
+            <button class="py-1 flex-col md:flex-row" data-bs-toggle="modal" data-bs-target="#logoutModal"
+              routerLinkActive="active">
+              <i title="Logout" class="fa-solid fa-arrow-right-from-bracket text-xl text-dark"></i>
+            </button>
+          </li>
+
+          <li class="top-nav-menu-item ms-2">
+            <a href="/pages/profile" class="flex items-center y-1 flex-col md:flex-row  ">
+              <img *ngIf="!this.profileImage" src="/img/profile-1.png" class="h-8 w-8 rounded-full object-cover"  alt="profile Logo" />
+              <img *ngIf="this.profileImage" src="/img/personal-1.jpg" class="h-8 w-8 rounded-full object-cover" alt="Profile Logo" />   
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</nav>
+
+
+<div [class.hidden]="!isDrawerOpen"
+  class="fixed inset-y-0 left-0 w-60 bg-gray-50 border-r border-gray-200 transform transition-transform duration-500 z-50 md:hidden"
+  [ngClass]="{'-translate-x-full': !isDrawerOpen, 'translate-x-0': isDrawerOpen}" (click)="stopPropagation($event)">
+
+  <h5 id="drawer-navigation-label" class="text-base font-bold text-gray-900 uppercase mt-5  text-center"
+    style="color: #dfa974">Menu</h5>
+  <button (click)="toggleDrawer()" type="button" data-drawer-hide="drawer-navigation" aria-controls="drawer-navigation"
+    class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 absolute top-2.5 end-2.5 inline-flex items-center dark:hover:bg-gray-600 ">
+    <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+      <path fill-rule="evenodd"
+        d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+        clip-rule="evenodd"></path>
+    </svg>
+    <span class="sr-only">Close menu</span>
+  </button>
+
+  <div class="p-4 overflow-y-auto">
+    <ul class="space-y-2 font-medium">
+      <li *ngFor="let item of menulist">
+        <a 
+          [routerLink]="item.path" 
+          routerLinkActive="active" 
+          class="flex items-center p-2 text-gray-900 rounded-lg hover:bg-[#dfa974] dark:hover:bg-[#dfa974] group">
+          <i class="fas" [ngClass]="{
+            'fa-home': item.title === 'Home',
+            'fa-info-circle': item.title === 'About us',
+            'fa-bed': item.title === 'Rooms',
+            'fa-newspaper': item.title === 'News',
+            'fa-phone-alt': item.title === 'Contact'
+          }"></i>
+          <span class="flex-1 ms-3 whitespace-nowrap">{{ item.title }}</span>
+        </a>
+      </li>
+
+      <li>
+        <a href="/booking/cart" routerLinkActive="active"
+          class="flex items-center p-2 text-gray-900 rounded-lg hover:bg-[#dfa974] dark:hover:bg-[#dfa974] group">
+          <a class="relative mr-4 py-1 flex-col md:flex-row">
+            <i class="fas fa-shopping-cart " title="Shopping Cart" id="rot" [routerLink]="['/booking/cart']"></i>
+            <span *ngIf="nOfItems"
+              class="absolute -top-3 -left-1 inline-flex items-center justify-center w-5 h-5 text-xs font-bold text-white bg-dark rounded-full">
+              {{nOfItems}}
+            </span>
+          </a>
+          <span class="flex-1 ms-3 whitespace-nowrap">Reservation</span>
+        </a>
+      </li>
+      <li>
+
+        <a routerLink="/pages/profile" routerLinkActive="active"
+          class="flex items-center p-2 text-gray-900 rounded-lg hover:bg-[#dfa974] dark:hover:bg-[#dfa974] group">
+          <i class="fas fa-user"></i>
+          <span class="flex-1 ms-3 whitespace-nowrap">Profile</span>
+        </a>
+      </li>
+
+      <li *ngIf="!isLoggedIn">
+        <a href="/auth/login"
+          class="flex items-center p-2 text-gray-900 rounded-lg hover:bg-[#dfa974] dark:hover:bg-[#dfa974] group">
+          <i class="fas fa-sign-in-alt"></i>
+          <span class="flex-1 ms-3 whitespace-nowrap">Sign In</span>
+        </a>
+      </li>
+      <li *ngIf="isLoggedIn">
+        <a class="flex items-center cursor-pointer p-2 text-gray-900 rounded-lg hover:bg-[#dfa974] dark:hover:bg-[#dfa974] group"
+          data-bs-toggle="modal" data-bs-target="#logoutModal" routerLinkActive="active">
+          <i title="Logout" class="fa-solid fa-arrow-right-from-bracket"></i>
+          <span class="flex-1 ms-3 whitespace-nowrap">Log Out</span>
+        </a>
+      </li>
+    </ul>
+
+  </div>
+</div>
+
+
+<!--logout Model-->
+<div class="modal fade" id="logoutModal" tabindex="-1" aria-labelledby="logoutModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered flex items-center justify-center">
+    <div class="modal-content bg-gray-50 rounded-md w-full max-w-[300px] sm:max-w-[500px] text-center p-4 sm:p-10">
+      <div class="modal-body">
+        <div class="flex flex-col items-center justify-center">
+          <span
+            class="mb-4 inline-flex justify-center items-center w-[62px] h-[62px] rounded-full border-4 border-yellow-50 bg-yellow-100 text-yellow-500">
+            <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+              viewBox="0 0 16 16">
+              <path
+                d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z">
+              </path>
+            </svg>
+          </span>
+
+          <h3 class="mb-2 text-2xl font-bold text-gray-800">
+            Sign out
+          </h3>
+          <p class="text-gray-500">
+            Are you sure you would like to sign out of your account?
+          </p>
+        </div>
+        <div class="modal-footer mt-6 flex justify-center gap-x-4">
+          <button type="button"
+            class="py-2.5 px-4 inline-flex justify-center items-center gap-2 rounded-md border font-medium bg-white text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-white focus:ring-blue-600 transition-all text-sm"
+            (click)="confirmLogout()">
+            Sign out
+          </button>
+          <button type="button"
+            class="py-2.5 px-4 inline-flex justify-center items-center gap-2 rounded-md border border-transparent font-semibold bg-blue-500 text-white hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all text-sm"
+            data-bs-dismiss="modal">
+            Cancel
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Backdrop -->
+<div *ngIf="isDrawerOpen" class="fixed inset-0 bg-black bg-opacity-50 z-40 md:hidden" (click)="toggleDrawer()">
+</div>

@@ -1,0 +1,14 @@
+<div class=" text-center" style="background-color: #ffffff;">
+    <div *ngIf ="showHeaderAndNavbar"  class="col-12 ">
+        <app-NavBar></app-NavBar>
+    </div>
+</div>
+
+
+<router-outlet style="background-color: #f8f8f8;"></router-outlet>
+
+<footer *ngIf ="showHeaderAndNavbar" class="container-fluid p-0 text-center">
+    <div class="col-12 ">
+        <app-Footer></app-Footer>
+    </div>
+</footer>

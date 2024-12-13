@@ -1,0 +1,209 @@
+<div id="preloader">
+  <div class="loader"></div>
+</div>
+
+<section class="py-10 my-10">
+  <div class="lg:w-[70%] md:w-[70%] xs:w-[86%] mx-auto flex gap-4">
+    <div class="lg:w-[88%] md:w-[80%] sm:w-[88%] xs:w-full mx-auto shadow-2xl p-4 rounded-xl h-fit self-center /40">
+      <div>
+        <h5 class="lg:text-3xl md:text-2xl sm:text-xl xs:text-s font-serif font-extrabold mb-2 ">
+          Profile
+        </h5>       
+        <form [formGroup]="profileForm">
+
+          <div class="relative w-full mb-5">          
+            <img src="{{this.profileData.coverImgUrl}}"
+              class="w-full h-64 rounded-sm object-cover" />                    
+            <div class="absolute inset-0 flex justify-center items-end -mb-16">
+              <img src="{{this.profileData.coverImgUrl}}"
+                class="w-[141px] h-[141px] rounded-full object-cover border-4 border-white shadow-lg" />
+            </div>
+          </div>
+                              
+          <div class="flex lg:flex-row md:flex-col sm:flex-col xs:flex-col gap-2 justify-center w-full">
+            <div class="w-full   mt-6">
+              <h5 for="">Your Name</h5>
+              <input type="text" class="mt-2 p-2 w-full border-2 rounded-lg  " formControlName="userName" [readonly]="true" />
+                <!-- value="{{this.profileData.userName}}"> -->
+            </div>
+            <div class="w-full  mb-4 lg:mt-6">
+              <h5 for="" class=" ">Email </h5>
+              <input type="email" class="mt-2 p-2 w-full border-2 rounded-lg  "formControlName="email"  [readonly]="true">
+            </div>
+          </div>
+
+          <div class="flex lg:flex-row md:flex-col mb-4 sm:flex-col xs:flex-col gap-2 justify-center w-full">
+            <div class="w-full">
+              <h5>Phone Number</h5>
+              <input type="text" class="mt-2 p-2 w-full border-2 rounded-lg  " formControlName="phoneNumber" [readonly]="true" />
+                <!-- value="{{this.profileData.phoneNumber}}"> -->
+            </div>
+            <div class="w-full">
+              <h5 class="mb-2">Address</h5>
+              <input type="text" class="text-grey p-2 w-full border-2 rounded-lg" formControlName="address" [readonly]="true" />
+                <!-- value="{{this.profileData.address}}"> -->
+            </div>
+          </div>
+
+          <div class="w-full rounded-lg bg-blue-500 text-white text-lg font-semibold" style="background-color: #dfa974;">
+            <div class="flex">            
+              <button (click)="openDialog()" type="button" class="w-1/2 p-4 border-r border-white">Edit</button>          
+              <button (click)="openDialog2()" type="button" class="w-1/2 p-4">Change Password</button>
+            </div>
+          </div>
+          <!-- <div class="w-full rounded-lg bg-blue-500  text-white text-lg font-semibold"
+          style="background-color: #dfa974;">
+          <button (click)="openDialog()" type="submit" class="w-full p-4">Edite</button>
+        </div>   -->
+          
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+<form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
+  <div *ngIf="isDialogOpen"
+    class="fixed inset-0 z-[999] grid h-screen w-screen place-items-center bg-gray-50 bg-opacity-60 backdrop-blur-sm transition-opacity duration-300"
+    (click)="closeDialog()">
+    <div
+      [ngClass]="{ 'opacity-100 translate-y-0 scale-100': isDialogMounted, 'opacity-0 -translate-y-28 scale-90 pointer-events-none': !isDialogMounted }"
+      class="relative m-4 p-6 w-11/12 sm:w-2/3 md:w-1/2 lg:w-2/5 min-w-[280px] rounded-lg bg-white shadow-sm transition-all duration-300"
+      (click)="$event.stopPropagation()">
+    
+      <div class="flex shrink-0 items-center pb-4 text-xl font-medium text-slate-800">
+        Update Your Profile
+      </div>
+
+      <div class="space-y-4">
+        <div class="flex items-center space-x-2">
+          <div class="flex flex-col w-1/2">
+            <label class="font-medium text-slate-700">Name</label>
+            <input type="text" class="p-2 border rounded-md" formControlName="userName"  placeholder="Name"   />
+          </div>
+          <div class="flex flex-col w-1/2">
+            <label class="font-medium text-slate-700">Email</label>
+            <input type="email" class="p-2 border rounded-md" formControlName="email" placeholder="Email"    /> 
+            <div *ngIf="email?.touched && email?.invalid" class="text-red-500 text-sm">
+              <div *ngIf="email?.hasError('email')">
+                Please enter a valid email address.
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="flex items-center space-x-2">
+          <div class="flex flex-col w-1/2">
+            <label class="font-medium text-slate-700">Phone Number</label>
+            <input type="text" class="p-2 border rounded-md" formControlName="phoneNumber" placeholder="phoneNumber" 
+             value="{{this.profileData.phoneNumber}}" /> 
+          </div>
+          <div class="flex flex-col w-1/2">
+            <label class="font-medium text-slate-700">Address</label>
+            <input type="text" class="p-2 border rounded-md" formControlName="address" placeholder="Address"
+               value="{{this.profileData.address}}" /> 
+          </div>
+        </div>
+
+        <div class="flex items-center space-x-2">
+          <div class="flex flex-col w-1/2">
+            <label class="font-medium text-slate-700">Presonal Image</label>
+            <input type="file" class="p-2 border rounded-md" formControlName="personalImgUrl" (change)="onImageChange($event)" />       
+          </div>
+          <div class="flex flex-col w-1/2">
+            <label class="font-medium text-slate-700">Cover Image</label>
+            <input type="file" class="p-2 border rounded-md" formControlName="coverImgUrl" (change)="onImageChange($event)" />         
+          </div>
+        </div>
+
+      </div>
+
+      <div class="flex shrink-0 flex-wrap items-center pt-6 justify-end space-x-4">
+        <button (click)="closeDialog()"
+          class="rounded-md border border-transparent py-2 px-6 text-center text-sm transition-all text-slate-600 hover:bg-slate-100 focus:bg-slate-100 active:bg-slate-100 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+          type="button">
+          Cancel
+        </button>
+        <button 
+          class="rounded-md bg-dark py-2 px-6 border border-transparent text-center text-sm text-white transition-all shadow-md hover:shadow-lg focus:bg-green-700 focus:shadow-none active:bg-green-700 hover:bg-green-700 active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+          type="submit">
+          Apply
+        </button>
+      </div>
+    </div>
+  </div>
+</form>
+
+<form [formGroup]="passwordForm" (ngSubmit)="onChangePassword()">
+  <div *ngIf="isDialogOpen2"
+    class="fixed inset-0 z-[999] grid h-screen w-screen place-items-center bg-gray-50 bg-opacity-60 backdrop-blur-sm transition-opacity duration-300"
+    (click)="closeDialog2()">
+    <div
+      [ngClass]="{ 'opacity-100 translate-y-0 scale-100': isDialogMounted2, 'opacity-0 -translate-y-28 scale-90 pointer-events-none': !isDialogMounted2 }"
+      class="relative m-4 p-6 w-11/12 sm:w-1/3 md:w-1/2 lg:w-1/5 min-w-[280px] rounded-lg bg-white shadow-sm transition-all duration-300"
+      (click)="$event.stopPropagation()">
+
+      <div class="flex shrink-0 items-center pb-4 text-xl font-medium text-slate-800">
+        Change Your Password
+      </div>
+
+      <div class="space-y-4">
+        <!-- Current Password -->
+        <div class="flex flex-col">
+          <label class="font-medium text-slate-700">Current Password</label>
+          <input type="password" formControlName="currentPassword" placeholder="Enter current password"
+            class="p-2 border rounded-md" />
+          <div *ngIf="currentPassword?.touched && currentPassword?.invalid" class="text-red-500 text-sm">
+            <div *ngIf="currentPassword?.hasError('required')">
+              Current password is required.
+            </div>
+          </div>
+        </div>
+
+        <!-- New Password -->
+        <div class="flex flex-col">
+          <label class="font-medium text-slate-700">New Password</label>
+          <input type="password" formControlName="newPassword" placeholder="Enter new password"
+            class="p-2 border rounded-md" />
+          <div *ngIf="newPassword?.touched && newPassword?.invalid" class="text-red-500 text-sm">
+            <div *ngIf="newPassword?.hasError('required')">
+              New password is required.
+            </div>
+          </div>
+        </div>
+
+        <!-- Confirm New Password -->
+        <div class="flex flex-col">
+          <label class="font-medium text-slate-700">Confirm New Password</label>
+          <input type="password" formControlName="confirmPassword" placeholder="Confirm new password"
+            class="p-2 border rounded-md" />
+          <div *ngIf="confirmPassword?.touched && confirmPassword?.invalid" class="text-red-500 text-sm">
+            <div *ngIf="confirmPassword?.hasError('required')">
+              Confirm password is required.
+            </div>
+            <div *ngIf="passwordForm?.hasError('passwordMismatch')">
+              Passwords do not match.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Buttons -->
+      <div class="flex shrink-0 flex-wrap items-center pt-6 justify-end space-x-4">
+        <button (click)="closeDialog2()"
+          class="rounded-md border border-transparent py-2 px-6 text-center text-sm transition-all text-slate-600 hover:bg-slate-100 focus:bg-slate-100 active:bg-slate-100 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+          type="button">
+          Cancel
+        </button>
+        <button
+          class="rounded-md bg-dark py-2 px-6 border border-transparent text-center text-sm text-white transition-all shadow-md hover:shadow-lg focus:bg-green-700 focus:shadow-none active:bg-green-700 hover:bg-green-700 active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+          type="submit">
+          Apply
+        </button>
+      </div>
+    </div>
+  </div>
+</form>
+

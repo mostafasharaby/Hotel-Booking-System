@@ -1,0 +1,8 @@
+ .backdrop {
+    backdrop-filter: blur(2px);
+  }
+
+  .active {
+    color: #dfa974 !important;    
+    text-decoration: underline;
+  }

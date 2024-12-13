@@ -1,0 +1,73 @@
+
+/*---------------------
+  Room Section
+-----------------------*/
+
+.rooms-section {
+	padding-top: 0;
+	padding-bottom: 80px;
+}
+.room-item {
+	margin-bottom: 30px;
+}
+.room-item img {
+	min-width: 100%;
+}
+.room-item .ri-text {
+	border: 1px solid #ebebeb;
+	border-top: none;
+	padding: 24px 24px 30px 28px;
+}
+.room-item .ri-text h4 {
+	color: #19191a;
+	margin-bottom: 17px;
+}
+.room-item .ri-text h3 {
+	color: #dfa974;
+	font-weight: 700;
+	margin-bottom: 14px;
+}
+.room-item .ri-text h3 span {
+	font-family: "Cabin", sans-serif;
+	font-size: 14px;
+	font-weight: 400;
+	color: #19191a;
+}
+.room-item .ri-text table {
+	margin-bottom: 18px;
+}
+.room-item .ri-text table tbody tr td {
+	font-size: 16px;
+	color: #707079;
+	line-height: 36px;
+}
+.room-item .ri-text table tbody tr td.r-o {
+	width: 125px;
+}
+.room-item .ri-text .primary-btn {
+	color: #19191a;
+}
+.room-pagination {
+	text-align: center;
+	padding-top: 20px;
+}
+.room-pagination a {
+	font-size: 16px;
+	color: #707079;
+	border: 1px solid #EFD4B9;
+	border-radius: 2px;
+	padding: 7px 13px 5px;
+	margin-right: 7px;
+	display: inline-block;
+	-webkit-transition: all 0.3s;
+	-o-transition: all 0.3s;
+	transition: all 0.3s;
+}
+.room-pagination a:last-child {
+	margin-right: 0;
+}
+.room-pagination a:hover {
+	background: #dfa974;
+	color: #ffffff;
+}
+

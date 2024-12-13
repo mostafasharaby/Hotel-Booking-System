@@ -1,0 +1,29 @@
+{
+  "Files": [
+    {
+      "Id": "D:\\backend\\AngularApi\\wwwroot\\images\\IMG_4911.JPG",
+      "PackagePath": "staticwebassets\\images\\IMG_4911.JPG"
+    },
+    {
+      "Id": "D:\\backend\\AngularApi\\wwwroot\\images\\shopping1.webp",
+      "PackagePath": "staticwebassets\\images\\shopping1.webp"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.AngularApi.Microsoft.AspNetCore.StaticWebAssets.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.build.AngularApi.props",
+      "PackagePath": "build\\AngularApi.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.buildMultiTargeting.AngularApi.props",
+      "PackagePath": "buildMultiTargeting\\AngularApi.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.buildTransitive.AngularApi.props",
+      "PackagePath": "buildTransitive\\AngularApi.props"
+    }
+  ],
+  "ElementsToRemove": []
+}

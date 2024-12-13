@@ -1,0 +1,89 @@
+<div id="preloader">
+  <div class="loader"></div>
+</div>
+
+<!-- Breadcrumb Section Begin -->
+<div class="breadcrumb-section">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="breadcrumb-text">
+          <h2>Our Rooms</h2>
+          <div class="bt-option">
+            <a href="/pages/home">Home</a>
+            <span>Rooms</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Breadcrumb Section End -->
+
+
+<!--filter Section Begin -->
+<app-filter></app-filter>
+<!--filter Section End -->
+
+
+<!-- Rooms Section Begin -->
+<section class="rooms-section spad mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 my-4" *ngIf="searchResult">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-4 col-md-6" *ngFor="let room of filteredCards">
+        <div class="room-item">
+          <img [src]="room.imageURL" alt="{{ room.name }}" class="rounded-2">
+          <div class="ri-text">
+            <h4>{{ room.name }}</h4>
+            <h3>{{ room.price }}$<span>/Pernight</span></h3>
+            <table>
+              <tbody>
+                <tr>
+                  <td class="r-o">Size:</td>
+                  <td>{{ room.size }} ft</td>
+                </tr>
+                <tr>
+                  <td class="r-o">Capacity:</td>
+                  <td>Max person {{ room.capacity }}</td>
+                </tr>
+                <tr>
+                  <td class="r-o">Bed:</td>
+                  <td>{{ room.roomName }}</td>
+                </tr>
+                <tr>
+                  <td class="r-o">Services:</td>
+                  <td>{{ room.services }}</td>
+                </tr>
+              </tbody>
+            </table>
+            <span class="flex justify-between">
+              <a (click)="routeToDetails(room.roomID)" class="primary-btn cursor-pointer">More Details</a>
+              <button 
+              class="primary-btn"
+              (click)="bookNow(room)">
+              <i class="fas fa-bookmark mr-2"></i> Book Now
+            </button>
+            </span>
+            
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-12">
+        <div class="room-pagination">
+          <a href="#">1</a>
+          <a href="#">2</a>
+          <a href="#">Next <i class="fa fa-long-arrow-right"></i></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<section *ngIf="!searchResult" class="no-products-section mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 my-5">
+  <div class="d-flex flex-column justify-content-center align-items-center text-center">
+    <div class="fs-4  text-muted">We're sorry, but no Rooms match your search.</div>
+    <p class="mt-2 text-secondary">Please try different keywords or adjust your filters.</p>
+    <img src="/img/NotFound.png" alt="No Product Available" class="no-products-image">
+  </div>
+</section>
+<!-- Rooms Section End -->

@@ -1,0 +1,206 @@
+/*---------------------
+  Hero
+-----------------------*/
+
+.hero-section {
+	position: relative;
+	padding-top: 60px;
+	padding-bottom: 100px;
+}
+.hero-section .container {
+	position: relative;
+	z-index: 5;
+}
+.hero-text {
+	padding-top: 145px;
+}
+.hero-text h1 {
+	font-size: 80px;
+	line-height: 90px;
+	color: #ffffff;
+	margin-bottom: 16px;
+}
+.hero-text p {
+	font-size: 18px;
+	color: #ffffff;
+	line-height: 28px;
+	margin-bottom: 35px;
+}
+.booking-form {
+	background: #ffffff;
+	padding: 30px 30px 30px 30px;
+	border-radius: 4px;
+}
+.booking-form h3 {
+	color: #19191a;
+	margin-bottom: 36px;
+}
+.booking-form form .check-date {
+	position: relative;
+	margin-bottom: 15px;
+}
+.booking-form form .check-date label {
+	font-size: 14px;
+	color: #707079;
+	display: block;
+	margin-bottom: 10px;
+}
+.booking-form form .check-date input {
+	width: 100%;
+	height: 50px;
+	border: 1px solid #ebebeb;
+	border-radius: 2px;
+	font-size: 16px;
+	color: #19191a;
+	text-transform: uppercase;
+	font-weight: 500;
+	padding-left: 20px;
+}
+.booking-form form .check-date i {
+	color: #dfa974;
+	position: absolute;
+	right: 18px;
+	bottom: 17px;
+}
+.booking-form form .select-option {
+	margin-bottom: 15px;
+}
+.booking-form form .select-option label {
+	font-size: 14px;
+	color: #707079;
+	display: block;
+	margin-bottom: 10px;
+}
+.booking-form form .select-option .nice-select {
+	border-radius: 2px;
+	border: 1px solid #ebebeb;
+	height: 50px;
+	line-height: 50px;
+	outline: none;
+	padding-left: 20px;
+	width: 100%;
+	float: none;
+}
+.booking-form form .select-option .nice-select:after {
+	border-bottom: 2px solid #dfa974;
+	border-right: 2px solid #dfa974;
+	height: 10px;
+	margin-top: 0;
+	right: 20px;
+	width: 10px;
+	top: 36%;
+}
+.booking-form form .select-option .nice-select span {
+	font-size: 16px;
+	color: #19191a;
+	text-transform: uppercase;
+	font-weight: 500;
+}
+.booking-form form .select-option .nice-select .list {
+	margin-top: 0;
+	width: 100%;
+}
+.booking-form form button {
+	display: block;
+	font-size: 14px;
+	text-transform: uppercase;
+	border: 1px solid #dfa974;
+	border-radius: 2px;
+	color: #dfa974;
+	font-weight: 500;
+	background: transparent;
+	width: 100%;
+	height: 46px;
+	margin-top: 30px;
+}
+.hero-slider {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	left: 0;
+	top: 0;
+}
+
+
+.hero-slider .owl-stage-outer, .hero-slider .owl-stage, .hero-slider .owl-item, .hero-slider .hs-item {
+	height: 100%;
+}
+
+
+/*---------------------
+  About US
+-----------------------*/
+
+.about-text {
+	text-align: center;
+	padding: 0 35px;
+}
+.about-text p {
+	color: #595960;
+	font-weight: 500;
+}
+.about-text p.f-para {
+	margin-bottom: 10px;
+}
+.about-text p.s-para {
+	margin-bottom: 35px;
+}
+.about-text .about-btn {
+	color: #19191a;
+}
+.about-pic img {
+	min-width: 100%;
+}
+
+/*---------------------
+  Service Section
+-----------------------*/
+
+.services-section {
+	padding-bottom: 60px;
+	border-top: 1px solid #e5e5e5;
+}
+.services-section .section-title {
+	margin-bottom: 36px;
+}
+.service-item {
+	text-align: center;
+	padding: 30px 35px 18px;
+	-webkit-transition: all 0.3s;
+	-o-transition: all 0.3s;
+	transition: all 0.3s;
+}
+.service-item:hover {
+	background: #dfa974;
+}
+.service-item:hover i {
+	color: #ffffff;
+}
+.service-item:hover h4 {
+	color: #ffffff;
+}
+.service-item:hover p {
+	color: #ffffff;
+}
+.service-item i {
+	display: inline-block;
+	color: #dfa974;
+	-webkit-transition: all 0.3s;
+	-o-transition: all 0.3s;
+	transition: all 0.3s;
+}
+.service-item h4 {
+	color: #19191a;
+	font-size: 22px;
+	margin-bottom: 15px;
+	margin-top: 10px;
+	-webkit-transition: all 0.3s;
+	-o-transition: all 0.3s;
+	transition: all 0.3s;
+}
+.service-item p {
+	color: #707079;
+	-webkit-transition: all 0.3s;
+	-o-transition: all 0.3s;
+	transition: all 0.3s;
+}
