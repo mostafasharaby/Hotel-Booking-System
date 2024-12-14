@@ -7,11 +7,11 @@ import { AboutUsComponent } from './AboutUs/AboutUs.component';
 import { ContactComponent } from './Contact/Contact.component';
 import { HomeComponent } from './Home/Home.component';
 import { NewsComponent } from './News/News.component';
-import { NewsDetailsComponent } from './news-details/news-details.component';
 import { RoomComponent } from './Room/Room.component';
 import { RoomDetailsComponent } from './RoomDetails/RoomDetails.component';
 import { FilterComponent } from './filter/filter.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
+import { NewsDetailsComponent } from './NewsDetails/NewsDetails.component';
 
 
 const routes: Routes = [

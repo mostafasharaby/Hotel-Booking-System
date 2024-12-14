@@ -1,7 +1,9 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\AngularApi",
+    "\\AngularApi\\Controllers"
   ],
-  "SelectedNode": "\\AngularApi",
+  "SelectedNode": "\\AngularApi\\Controllers\\AccountController.cs",
   "PreviewInSolutionExplorer": false
 }

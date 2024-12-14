@@ -7,7 +7,7 @@ export const MENU:{
         path:'/pages/home'
     },
     {
-        title:'About us',
+        title:'About Us',
         path:'/pages/about-us'
     },
     {

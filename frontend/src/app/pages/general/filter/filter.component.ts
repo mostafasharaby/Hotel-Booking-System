@@ -44,6 +44,48 @@ export class FilterComponent implements OnInit {
     this.closeDialog();
   }
 
+
+  applyFilters() {
+    this.searchService.setSearchTerm(this.searchItem?.toLowerCase().trim() || '');
+    this.filterSizeService.setSizeRange(this.minSize, this.maxSize);
+    this.filterCapcityServic.setCapacity(this.capacity);
+    this.filterPriceService.setPriceRange(this.minPrice, this.maxPrice);
+  
+    switch (this.selectedSortOption) {
+      case 'priceAsc':
+        this.sortRoomsByPrice('asc');
+        break;
+      case 'priceDesc':
+        this.sortRoomsByPrice('desc');
+        break;
+      case 'sizeAsc':
+        this.sortRoomsBySize('asc');
+        break;
+      case 'sizeDesc':
+        this.sortRoomsBySize('desc');
+        break;
+      case 'capacityAsc':
+        this.sortRoomsByCapacity('asc');
+        break;
+      case 'capacityDesc':
+        this.sortRoomsByCapacity('desc');
+        break;
+      default:
+        console.log('No sorting applied');
+    }
+  console.log('this.selectedSortOption', this.selectedSortOption);
+    console.log('Filters applied:',{
+      search: this.searchItem,
+      minSize: this.minSize,
+      maxSize: this.maxSize,
+      capacity: this.capacity,
+      minPrice: this.minPrice,
+      maxPrice: this.maxPrice,
+      sortOption: this.selectedSortOption
+    });
+  }
+
+  
   resetFilters() {
     this.searchItem = '';
     this.minSize = null;
@@ -87,28 +129,28 @@ export class FilterComponent implements OnInit {
   onSortChange(event: Event): void {
     const selectedValue = (event.target as HTMLSelectElement).value;
     this.selectedSortOption = (event.target as HTMLSelectElement).value;
-    switch (this.selectedSortOption) {
-      case 'priceAsc':
-        this.sortRoomsByPrice('asc');
-        break;
-      case 'priceDesc':
-        this.sortRoomsByPrice('desc');
-        break;
-      case 'sizeAsc':
-        this.sortRoomsBySize('asc');
-        break;
-      case 'sizeDesc':
-        this.sortRoomsBySize('desc');
-        break;
-      case 'capacityAsc':
-        this.sortRoomsByCapacity('asc');
-        break;
-      case 'capacityDesc':
-        this.sortRoomsByCapacity('desc');
-        break;
-      default:
-        console.log("Default sort applied");
-    }
+    // switch (this.selectedSortOption) {
+    //   case 'priceAsc':
+    //     this.sortRoomsByPrice('asc');
+    //     break;
+    //   case 'priceDesc':
+    //     this.sortRoomsByPrice('desc');
+    //     break;
+    //   case 'sizeAsc':
+    //     this.sortRoomsBySize('asc');
+    //     break;
+    //   case 'sizeDesc':
+    //     this.sortRoomsBySize('desc');
+    //     break;
+    //   case 'capacityAsc':
+    //     this.sortRoomsByCapacity('asc');
+    //     break;
+    //   case 'capacityDesc':
+    //     this.sortRoomsByCapacity('desc');
+    //     break;
+    //   default:
+    //     console.log("Default sort applied");
+    // }
   }
   
   capacity: number | null = null;

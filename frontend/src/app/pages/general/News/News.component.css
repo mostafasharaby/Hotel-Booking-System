@@ -330,3 +330,10 @@
 .recommend-blog-section .section-title h2 {
 	margin-top: 0;
 }
+
+
+.set-bg {
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-position: top center;
+}

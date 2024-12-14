@@ -10,6 +10,8 @@ import { FilterSizeService } from './room-service/filter-size.service';
 import { CartService } from '../../booking/cart/cart-service/cart.service';
 import { Room } from '../../booking/cart/cart-model/cart';
 import { Router } from '@angular/router';
+import { AuthServiceService } from '../../auth/auth-services/auth-service.service';
+import { SnakebarService } from '../../../shared/service/SnakebarService.service';
 
 @Component({
   selector: 'app-Room',
@@ -28,7 +30,9 @@ export class RoomComponent implements AfterViewInit {
               private filterPriceService :FilterPriceService,  
               private filterSizeService :FilterSizeService,
               private cartService :CartService,
-              private router : Router
+              private router : Router,
+              private authService : AuthServiceService,
+              private snakebarService :SnakebarService
               ) { }
   ngAfterViewInit(): void {   
     this.reload.initializeLoader();
@@ -41,6 +45,7 @@ export class RoomComponent implements AfterViewInit {
   cards !: any[]; 
   rooms: any[] = [];
   sortOrder: string = 'asc';
+  isLoggedIn = true;
   private subscriptions: Subscription[] = [];
 
   ngOnInit(): void {
@@ -85,6 +90,10 @@ export class RoomComponent implements AfterViewInit {
           this.filteredCards = this.rooms;
         }
       });
+    
+      this.authService.getloggedStatus().subscribe(status => {
+        this.isLoggedIn = status;
+      });
                  
     //)
   }
@@ -116,8 +125,15 @@ export class RoomComponent implements AfterViewInit {
 
 
   bookNow(room: Room): void {
-    console.log('Booking room:', room);
-    this.cartService.addCartItem2(room);
+    if(this.isLoggedIn){
+      console.log('Booking room:', room);
+      this.cartService.addCartItem2(room);
+    }else{
+      console.log('user is not authentcated');
+      this.snakebarService.showSnakeBar("You need to be logged in to continue.");
+      this.router.navigate(['/auth/login']);
+    }
+    
   }
 
 

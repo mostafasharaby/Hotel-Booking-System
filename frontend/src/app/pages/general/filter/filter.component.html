@@ -26,8 +26,8 @@
         <label class="font-medium text-slate-700">Sort By</label>
         <select 
           class="p-2 border rounded-md"    
-         
-          (change)="onSortChange($event)" >
+         (click)="onSortChange($event)"
+          >
           <option value=""selected>Select an option</option>
           <option value="priceAsc">Price: Low to High</option>
           <option value="priceDesc">Price: High to Low</option>
@@ -42,30 +42,30 @@
       <div class="flex items-center space-x-2">
         <div class="flex flex-col w-1/2">
           <label class="font-medium text-slate-700">Min Size</label>
-          <input type="number" class="p-2 border rounded-md" placeholder="Enter Room Min Size" [(ngModel)]="minSize"  min="1"   (input)="onSizeChange()" />
+          <input type="number" class="p-2 border rounded-md" placeholder="Enter Room Min Size" [(ngModel)]="minSize"  min="1"    />
         </div>
         <span style="margin-top: 1rem;">-</span>
         <div class="flex flex-col w-1/2">
           <label class="font-medium text-slate-700">Max</label>
-          <input type="number" class="p-2 border rounded-md" placeholder="Infinity"  [(ngModel)]="maxSize"  (input)="onSizeChange()" min="1"/>
+          <input type="number" class="p-2 border rounded-md" placeholder="Infinity"  [(ngModel)]="maxSize"   min="1"/>
         </div>
       </div>
      
       <div class="flex flex-col">
         <label class="font-medium text-slate-700">capacity</label>
-        <input type="number" class="p-2 border rounded-md" placeholder="Enter number of guests" [(ngModel)]="capacity" (input)="onCapacityChange()" min="1"  />
+        <input type="number" class="p-2 border rounded-md" placeholder="Enter number of guests" [(ngModel)]="capacity"  min="1"  />
       </div>
       
       <div class="flex items-center space-x-2">
         <div class="flex flex-col w-1/2">
           <label class="font-medium text-slate-700">Min Price</label>
-          <input type="number" class="p-2 border rounded-md" placeholder="0" [(ngModel)]="minPrice" (input)="onPriceChange()" min="1"  />
+          <input type="number" class="p-2 border rounded-md" placeholder="0" [(ngModel)]="minPrice"  min="1"  />
         
         </div>
         <span style="margin-top: 1rem;">-</span>
         <div class="flex flex-col w-1/2">
           <label class="font-medium text-slate-700">Max</label>
-          <input type="number" class="p-2 border rounded-md" placeholder="Infinity" [(ngModel)]="maxPrice" (input)="onPriceChange()" min="1"   />
+          <input type="number" class="p-2 border rounded-md" placeholder="Infinity" [(ngModel)]="maxPrice"  min="1"   />
         </div>
       </div>
 
@@ -77,7 +77,7 @@
         type="button">
         Reset
       </button>
-      <button
+      <button (click)="applyFilters()"
         class="rounded-md bg-dark py-2 px-6 border border-transparent text-center text-sm text-white transition-all shadow-md hover:shadow-lg focus:bg-green-700 focus:shadow-none active:bg-green-700 hover:bg-green-700 active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
         type="button">
         Apply
