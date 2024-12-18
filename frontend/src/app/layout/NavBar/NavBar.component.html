@@ -20,23 +20,20 @@
 
         </button>
       </div>
-      <div class="hidden w-full lg:flex lg:pl-11 " id="navbar-default">                
-        <ul  class=" lg:flex items-center flex-col mt-3 lg:mt-0 lg:flex-row flex items-center  justify-center lg:flex-1 lg:justify-end">
+      <div class="hidden w-full lg:flex lg:pl-11 " id="navbar-default">
+        <ul
+          class=" lg:flex items-center flex-col mt-3 lg:mt-0 lg:flex-row flex items-center  justify-center lg:flex-1 lg:justify-end">
 
           <li *ngFor="let item of menulist" [ngClass]="{'me-[250px]': item.title === 'Contact'}" class="mx-2">
-            <a 
-              [routerLink]="item.path" 
-              routerLinkActive="active" 
+            <a [routerLink]="item.path" routerLinkActive="active"
               class="text-gray-900 cursor-pointer text-base lg:text-lg font-medium hover:text-[#dfa974] hover:underline transition-all duration-500 mb-2 block lg:mr-6 md:mb-0 lg:text-left text-center">
               {{ item.title }}
             </a>
           </li>
-          
 
           <li class="ms-[290px] top-nav-menu-item" [routerLink]="['/booking/cart']">
             <a class="relative mr-4 py-1 flex-col md:flex-row">
               <i class="cursor-pointer  fas fa-bookmark text-xl text-dark" title="Reservation"></i>
-              
               <span *ngIf=" nOfItems"
                 class="absolute -top-4 -left-3 inline-flex items-center justify-center w-5 h-5 text-xs font-bold text-white bg-dark rounded-full">
                 {{nOfItems}}
@@ -47,8 +44,8 @@
             <a class="py-1 flex-col md:flex-row" [routerLink]="['/auth/login']">
               <i title="Login" class="fa-regular fa-user text-xl text-dark "></i>
             </a>
-          </li>   
-                           
+          </li>
+
           <li class="mx-2 top-nav-menu-item" *ngIf="isLoggedIn">
             <button class="py-1 flex-col md:flex-row" data-bs-toggle="modal" data-bs-target="#logoutModal"
               routerLinkActive="active">
@@ -58,8 +55,10 @@
 
           <li class="top-nav-menu-item ms-2">
             <a href="/pages/profile" class="flex items-center y-1 flex-col md:flex-row  ">
-              <img *ngIf="!this.profileImage" src="/img/profile-1.png" class="h-8 w-8 rounded-full object-cover"  alt="profile Logo" />
-              <img *ngIf="this.profileImage" src="/img/personal-1.jpg" class="h-8 w-8 rounded-full object-cover" alt="Profile Logo" />   
+              <img *ngIf="!isLoggedIn" src="/img/profile.png" class="h-8 w-8 rounded-full object-cover"
+                alt="profile Logo" />
+              <img *ngIf="isLoggedIn" src="/img/personal-1.jpg" class="h-8 w-8 rounded-full object-cover"
+                alt="Profile Logo" />
             </a>
           </li>
         </ul>
@@ -88,13 +87,11 @@
   <div class="p-4 overflow-y-auto">
     <ul class="space-y-2 font-medium">
       <li *ngFor="let item of menulist">
-        <a 
-          [routerLink]="item.path" 
-          routerLinkActive="active" 
+        <a [routerLink]="item.path" routerLinkActive="active"
           class="flex items-center p-2 text-gray-900 rounded-lg hover:bg-[#dfa974] dark:hover:bg-[#dfa974] group">
           <i class="fas" [ngClass]="{
             'fa-home': item.title === 'Home',
-            'fa-info-circle': item.title === 'About us',
+            'fa-info-circle': item.title === 'About Us',
             'fa-bed': item.title === 'Rooms',
             'fa-newspaper': item.title === 'News',
             'fa-phone-alt': item.title === 'Contact'

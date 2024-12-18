@@ -197,6 +197,7 @@ export class RoomComponent implements AfterViewInit {
 
     Object.values(this.activeFilters).forEach((filterFn) => {
       this.filteredCards = filterFn(this.filteredCards);
+      this.searchResult = this.filteredCards.length > 0;
     });
 
     console.log('Filtered Cards:', this.filteredCards);

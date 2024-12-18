@@ -15,20 +15,20 @@
   <div class="checkout-complete-summary text-center">
       <div class="item">
           <h5>Reservation Number</h5>
-          <p>87</p>
+          <p>20</p>
       </div>
       <div class="item">
           <h5>Date</h5>
-          <p>6868</p>
+          <p>{{today | date}}</p>
       </div>
       <div class="item">
           <h5>Total</h5>
-           <p>$ 4354</p>  
+           <p>{{this.totalPrice |currency}}</p>  
       </div>
       <div class="item">
           <h5>Payment methods</h5>
           <p>Check payment</p>
       </div>
   </div>
-  <button class=" btn btn-dark rounded mt-4" style="background-color: #dfa974;" routerLink="/category/Men">Back to Shopping</button>
+  <button class=" btn btn-dark rounded mt-4" style="background-color: #dfa974;" routerLink="/category/Men">Back</button>
 </section>

@@ -33,9 +33,7 @@ wwwroot/css/
 wwwroot/js/
 appsettings*.json
 appsettings.*.json
-
-# MacOS
-.DS_Store
+appsettings.json
 
 # Windows
 Thumbs.db
