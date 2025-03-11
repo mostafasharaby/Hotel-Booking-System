@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Profile } from './profile-model/profile';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { SnakebarService } from '../../../shared/service/SnakebarService.service';
@@ -7,32 +7,42 @@ import { Router } from '@angular/router';
 import { ProfileService } from './profile-service/Profile.service';
 import { AuthServiceService } from '../../auth/auth-services/auth-service.service';
 import { ChangePasswordService } from './profile-service/change-password.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-user-profile',
   templateUrl: './user-profile.component.html',
   styleUrls: ['./user-profile.component.css']
 })
-export class UserProfileComponent implements OnInit {
+export class UserProfileComponent implements OnInit, OnDestroy {
 
   constructor(private fb: FormBuilder,
     private profileService: ProfileService,
     private reload: ReloadService,
     private snakebar: SnakebarService,
     private router: Router,
-    private changePasswordService :ChangePasswordService,
-    private snakebarService :SnakebarService) { }
+    private changePasswordService: ChangePasswordService,
+    private snakebarService: SnakebarService) { }
 
   ngOnInit() {
     //this.cartSubscription =
     this.initForm();
     this.getProfileDetails();
-   // this.onSubmit();
+    // this.onSubmit();
   }
 
-ngAfterViewInit(): void {
-this.reload.initializeLoader();
-}
+  private profileSub!: Subscription;
+  ngOnDestroy(): void {
+    if (this.profileSub) {
+      this.profileSub.unsubscribe();
+    }
+    console.log('ProfileComponent destroyed');
+  }
+
+
+  ngAfterViewInit(): void {
+    this.reload.initializeLoader();
+  }
   isDialogOpen = false;
   isDialogMounted = false;
   openDialog(): void {
@@ -51,7 +61,6 @@ this.reload.initializeLoader();
     console.log('Confirmed');
     this.closeDialog();
   }
-
 
   profileForm!: FormGroup;
   passwordForm!: FormGroup;
@@ -98,7 +107,7 @@ this.reload.initializeLoader();
     email: '',
     userName: '',
     phoneNumber: '',
-    address:'',
+    address: '',
     coverImgUrl: '',
     personalImgUrl: ''
   }
@@ -119,16 +128,16 @@ this.reload.initializeLoader();
       newPassword: ['', Validators.required],
       confirmPassword: ['', Validators.required],
     }, { validators: this.passwordMatchValidator });
-    
+
   }
 
 
   getProfileDetails(): void {
-    this.profileService.getProfileDetails2().subscribe({
+    this.profileSub = this.profileService.getProfileDetails2().subscribe({
       next: (profile) => {
         console.log('Profile fetched successfully:', profile);
         this.profileData = profile;
-       this.profileForm.patchValue(profile);  // Populate form with fetched data
+        this.profileForm.patchValue(profile);  // Populate form with fetched data
       },
       error: (error) => {
         console.error('Error fetching profile:', error);
@@ -154,12 +163,12 @@ this.reload.initializeLoader();
   }
 
   selectedImage: File | null = null;
-    onImageChange(event: Event) {
+  onImageChange(event: Event) {
     const target = event.target as HTMLInputElement;
     if (target.files && target.files.length > 0) {
       this.selectedImage = target.files[0];
       console.log('Selected image:', this.selectedImage);
-      this.profileData.personalImgUrl = '/img/'+this.selectedImage.name;
+      this.profileData.personalImgUrl = '/img/' + this.selectedImage.name;
     }
   }
 
@@ -168,22 +177,22 @@ this.reload.initializeLoader();
 
 
   passwordMatchValidator(form: FormGroup) {
-    return form.get('newPassword')?.value === form.get('confirmPassword')?.value ? null : { passwordMismatch: true };          
+    return form.get('newPassword')?.value === form.get('confirmPassword')?.value ? null : { passwordMismatch: true };
   }
-  
+
   onChangePassword() {
     if (this.passwordForm.valid) {
       const model = {
         currentPassword: this.passwordForm.value.currentPassword,
         newPassword: this.passwordForm.value.newPassword,
       };
-      console.log("model",model);
+      console.log("model", model);
       this.changePasswordService.changePassword(model).subscribe({
         next: (response) => {
           this.successMessage = response;
           this.errorMessage = '';
           this.passwordForm.reset();
-          console.log("success",this.successMessage);
+          console.log("success", this.successMessage);
           this.snakebarService.showSnakeBar("Password updated successfully");
         },
         error: (error) => {
@@ -191,7 +200,7 @@ this.reload.initializeLoader();
           this.successMessage = '';
           console.error("Error:", this.errorMessage);
           this.snakebarService.showSnakeBar(`Error updating password: ${this.errorMessage}`);
-          
+
         },
       });
     }
@@ -211,6 +220,6 @@ this.reload.initializeLoader();
     }, 150);
   }
 
-  
+
 
 }

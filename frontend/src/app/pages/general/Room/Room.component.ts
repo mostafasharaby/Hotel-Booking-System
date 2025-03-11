@@ -52,7 +52,7 @@ export class RoomComponent implements AfterViewInit {
 
 
     this.getAllRooms();    
-    //this.subscriptions.push(
+    this.subscriptions.push(
 
       this.sortService.sortTerm$.subscribe(order => {
         this.sortOrder = order;
@@ -89,18 +89,18 @@ export class RoomComponent implements AfterViewInit {
         if (reset) {
           this.filteredCards = this.rooms;
         }
-      });
+      }),
     
       this.authService.getloggedStatus().subscribe(status => {
         this.isLoggedIn = status;
-      });
+      }),
                  
-    //)
+    );
   }
 
-  // ngOnDestroy(): void {
-  //   this.subscriptions.forEach(sub => sub.unsubscribe());
-  // }
+  ngOnDestroy(): void {
+    this.subscriptions.forEach(sub => sub.unsubscribe());
+  }
 
 
   

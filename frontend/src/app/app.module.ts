@@ -6,7 +6,6 @@ import { AuthModule } from './pages/auth/auth.module';
 import { GeneralModule } from './pages/general/general.module';
 import { FooterComponent } from './layout/Footer/Footer.component';
 import { NavBarComponent } from './layout/NavBar/NavBar.component';
-import { ContentComponent } from './layout/content/content.component';
 import { RouterModule } from '@angular/router';
 import { BookingModule } from './pages/booking/booking.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -26,7 +25,6 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
     AppComponent,
     FooterComponent,
     NavBarComponent,
-    ContentComponent
   ],
   imports: [
     BrowserModule,
