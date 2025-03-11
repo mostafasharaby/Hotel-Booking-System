@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
 import { ReloadService } from '../../../shared/service/reload.service';
 import { Subscription } from 'rxjs';
 import { CartService } from './cart-service/cart.service';
@@ -9,22 +9,30 @@ import { Reservation, ReservedRoom, Room } from './cart-model/cart';
   templateUrl: './cart.component.html',
   styleUrls: ['./cart.component.css']
 })
-export class CartComponent implements OnInit, AfterViewInit {
+export class CartComponent implements OnInit, AfterViewInit,OnDestroy {
 
   cartItems: Room [] =[];
   totalPrice ?: number = 0;
+  cartSubscription !: Subscription;
+
   constructor(private reload: ReloadService,
               private cartService: CartService) {    
                 
     this.totalPrice = 0;
   }
+  ngOnDestroy(): void {
+    if (this.cartSubscription) {
+      this.cartSubscription.unsubscribe();
+    }
+    console.log('BlogComponent destroyed');
+  }
   ngAfterViewInit(): void {
     this.reload.initializeLoader();
   }
 
-  cartSubscription !: Subscription;
+
   ngOnInit() {
-    //this.cartSubscription =
+    this.cartSubscription =
     this.cartService.getCartItems().subscribe(
       (reservedRoom: ReservedRoom[]) => {
         if (reservedRoom) {
