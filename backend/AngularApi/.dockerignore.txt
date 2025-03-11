@@ -1,0 +1,16 @@
+﻿# Ignore node_modules and bin/obj folders
+node_modules/
+bin/
+obj/
+
+# Ignore logs and temp files
+*.log
+*.tmp
+
+# Ignore environment files (security risk!)
+.env
+secrets.json
+
+# Ignore Git repository files
+.git
+.gitignore
