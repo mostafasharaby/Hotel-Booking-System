@@ -1,11 +1,12 @@
+using AngularApi.Services;
+using Hotel_Backend.Models;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Caching.Distributed;
 using Microsoft.IdentityModel.Tokens;
-using System.Text;
 using Microsoft.OpenApi.Models;
-using Hotel_Backend.Models;
-using AngularApi.Services;
+using System.Text;
 
 namespace WebApiDemo
 {
@@ -52,7 +53,7 @@ namespace WebApiDemo
                     }
                 });
             });
-           
+
 
             // builder.Services.AddIdentity<User, IdentityRole>().AddEntityFrameworkStores<AngularDbContext>().AddDefaultTokenProviders();
             builder.Services.AddIdentity<Guest, IdentityRole>(options =>
@@ -67,6 +68,7 @@ namespace WebApiDemo
             builder.Services.AddScoped<IUserService, UserService>();
             builder.Services.AddScoped<IEmailService, EmailService>();
             builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            builder.Services.AddSingleton<ICacheService, CacheService>();
 
             builder.Services.AddDbContext<HotelDbContext>(option =>
             {
@@ -85,14 +87,14 @@ namespace WebApiDemo
                 op.TokenValidationParameters = new TokenValidationParameters()
                 {
                     ValidateIssuer = true,
-                    ValidIssuer = builder.Configuration["Jwt:ValidIssuer"], 
+                    ValidIssuer = builder.Configuration["Jwt:ValidIssuer"],
                     ValidateAudience = true,
-                    ValidAudience = builder.Configuration["Jwt:ValidAudience"], 
+                    ValidAudience = builder.Configuration["Jwt:ValidAudience"],
                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Secret"])) // Corrected spelling
                 };
             });
 
-            
+
             builder.Services.AddCors(options =>
             {
                 options.AddPolicy("MyPolicy", builder =>
@@ -101,7 +103,31 @@ namespace WebApiDemo
                 });
             });
 
+
+            builder.Services.AddStackExchangeRedisCache(options =>
+            {
+                options.Configuration = builder.Configuration.GetConnectionString("redis");
+                options.InstanceName = "_Rooms";
+            });
+
+
             var app = builder.Build();
+            app.MapGet("/", async (IDistributedCache cache) =>
+            {
+                string cacheKey = "message";
+                string cachedData = await cache.GetStringAsync(cacheKey);
+
+                if (cachedData == null)
+                {
+                    cachedData = "Hello from Redis!";
+                    await cache.SetStringAsync(cacheKey, cachedData, new DistributedCacheEntryOptions
+                    {
+                        AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(5) // Cache for 5 minutes
+                    });
+                }
+
+                return Results.Ok(cachedData);
+            });
 
 
 
@@ -122,9 +148,9 @@ namespace WebApiDemo
                 });
             }
 
-            app.UseStaticFiles();  
+            app.UseStaticFiles();
             app.UseCors("MyPolicy");
-            app.UseAuthentication(); 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.MapControllers();
