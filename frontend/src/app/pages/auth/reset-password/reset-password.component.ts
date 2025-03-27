@@ -6,8 +6,7 @@ import { SnakebarService } from '../../../shared/service/SnakebarService.service
 
 @Component({
   selector: 'app-reset-password',
-  templateUrl: './reset-password.component.html',
-  styleUrls: ['./reset-password.component.css']
+  templateUrl: './reset-password.component.html'
 })
 export class ResetPasswordComponent implements OnInit {
   resetForm!: FormGroup;

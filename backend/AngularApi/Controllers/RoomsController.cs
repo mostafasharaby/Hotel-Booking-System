@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
+﻿using AngularApi.Services;
+using Hotel_Backend.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Hotel_Backend.Models;
 
 namespace Hotel_Backend.Controllers
 {
@@ -14,24 +10,39 @@ namespace Hotel_Backend.Controllers
     public class RoomsController : ControllerBase
     {
         private readonly HotelDbContext _context;
-
-        public RoomsController(HotelDbContext context)
+        private readonly ICacheService _cacheService;
+        public RoomsController(HotelDbContext context, ICacheService cache)
         {
             _context = context;
+            _cacheService = cache;
         }
 
-        
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Room>>> GetRooms()
         {
-            return await _context.Rooms.ToListAsync();
+            var userID = Request.Headers["UserId"];
+            var cacheKey = $"Roomby_{userID}";
+            var cachedRooms = await _cacheService.GetAsync<IEnumerable<Room>>(cacheKey);
+            if (cachedRooms != null)
+            {
+                return Ok(cachedRooms);
+            }
+            var roomsFromDb = await _context.Rooms.ToListAsync();
+            await _cacheService.SetAsync(cacheKey, roomsFromDb); // Convert Object → String
+            return Ok(roomsFromDb);
         }
 
-       
         [HttpGet("{id}")]
         public async Task<ActionResult<Room>> GetRoom(int? id)
         {
+            string cacheKey = $"Room_{id}";
+            var roomCach = await _cacheService.GetAsync<Room>(cacheKey);
+            if (roomCach != null)
+            {
+                return Ok(roomCach);
+            }
             var room = await _context.Rooms.FindAsync(id);
+            await _cacheService.SetAsync(cacheKey, room);
 
             if (room == null)
             {
@@ -71,7 +82,7 @@ namespace Hotel_Backend.Controllers
             return NoContent();
         }
 
-       
+
         [HttpPost]
         public async Task<ActionResult<Room>> PostRoom(Room room)
         {
@@ -81,7 +92,7 @@ namespace Hotel_Backend.Controllers
             return CreatedAtAction("GetRoom", new { id = room.RoomID }, room);
         }
 
-       
+
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteRoom(int? id)
         {
