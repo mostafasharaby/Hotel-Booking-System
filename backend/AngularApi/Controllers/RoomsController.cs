@@ -1,5 +1,7 @@
-﻿using Hotel_Backend.Models;
+using Hotel_Backend.Models;
 using Hotel_Backend.Services;
+using AngularApi.Services;
+
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -11,11 +13,12 @@ namespace Hotel_Backend.Controllers
     {
         private readonly HotelDbContext _context;
         private readonly StripeService _stripeService;
-
-        public RoomsController(HotelDbContext context, StripeService stripeService)
+        private readonly ICacheService _cacheService;
+        public RoomsController(HotelDbContext context, StripeService stripeService , ICacheService cache)
         {
             _context = context;
             _stripeService = stripeService;
+             _cacheService = cache;
         }
 
         [HttpPost("reserve/{roomId}")]
@@ -32,17 +35,33 @@ namespace Hotel_Backend.Controllers
         }
 
 
+
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Room>>> GetRooms()
         {
-            return await _context.Rooms.ToListAsync();
+            var userID = Request.Headers["UserId"];
+            var cacheKey = $"Roomby_{userID}";
+            var cachedRooms = await _cacheService.GetAsync<IEnumerable<Room>>(cacheKey);
+            if (cachedRooms != null)
+            {
+                return Ok(cachedRooms);
+            }
+            var roomsFromDb = await _context.Rooms.ToListAsync();
+            await _cacheService.SetAsync(cacheKey, roomsFromDb); // Convert Object → String
+            return Ok(roomsFromDb);
         }
-
 
         [HttpGet("{id}")]
         public async Task<ActionResult<Room>> GetRoom(int? id)
         {
+            string cacheKey = $"Room_{id}";
+            var roomCach = await _cacheService.GetAsync<Room>(cacheKey);
+            if (roomCach != null)
+            {
+                return Ok(roomCach);
+            }
             var room = await _context.Rooms.FindAsync(id);
+            await _cacheService.SetAsync(cacheKey, room);
 
             if (room == null)
             {

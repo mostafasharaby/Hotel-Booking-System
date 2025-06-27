@@ -10,8 +10,7 @@ import { ResetPasswordService } from '../reset-password/reset-password-service/r
 
 @Component({
   selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  templateUrl: './login.component.html'
 })
 export class LoginComponent implements OnInit, AfterViewInit{
 

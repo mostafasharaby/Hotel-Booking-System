@@ -1,9 +1,9 @@
 using AngularApi.Services;
 using Hotel_Backend.Models;
-using Hotel_Backend.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Caching.Distributed;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Text;
@@ -54,7 +54,7 @@ namespace WebApiDemo
                 });
             });
 
-            // stripe 
+
             builder.Services.AddSingleton<StripeService>();
 
             // builder.Services.AddIdentity<User, IdentityRole>().AddEntityFrameworkStores<AngularDbContext>().AddDefaultTokenProviders();
@@ -70,6 +70,7 @@ namespace WebApiDemo
             builder.Services.AddScoped<IUserService, UserService>();
             builder.Services.AddScoped<IEmailService, EmailService>();
             builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            builder.Services.AddSingleton<ICacheService, CacheService>();
 
             builder.Services.AddDbContext<HotelDbContext>(option =>
             {
@@ -104,7 +105,31 @@ namespace WebApiDemo
                 });
             });
 
+
+            builder.Services.AddStackExchangeRedisCache(options =>
+            {
+                options.Configuration = builder.Configuration.GetConnectionString("redis");
+                options.InstanceName = "_Rooms";
+            });
+
+
             var app = builder.Build();
+            app.MapGet("/", async (IDistributedCache cache) =>
+            {
+                string cacheKey = "message";
+                string cachedData = await cache.GetStringAsync(cacheKey);
+
+                if (cachedData == null)
+                {
+                    cachedData = "Hello from Redis!";
+                    await cache.SetStringAsync(cacheKey, cachedData, new DistributedCacheEntryOptions
+                    {
+                        AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(5) // Cache for 5 minutes
+                    });
+                }
+
+                return Results.Ok(cachedData);
+            });
 
 
 
