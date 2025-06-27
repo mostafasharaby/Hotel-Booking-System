@@ -1,5 +1,7 @@
-﻿using AngularApi.Services;
 using Hotel_Backend.Models;
+using Hotel_Backend.Services;
+using AngularApi.Services;
+
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -10,12 +12,29 @@ namespace Hotel_Backend.Controllers
     public class RoomsController : ControllerBase
     {
         private readonly HotelDbContext _context;
+        private readonly StripeService _stripeService;
         private readonly ICacheService _cacheService;
-        public RoomsController(HotelDbContext context, ICacheService cache)
+        public RoomsController(HotelDbContext context, StripeService stripeService , ICacheService cache)
         {
             _context = context;
-            _cacheService = cache;
+            _stripeService = stripeService;
+             _cacheService = cache;
         }
+
+        [HttpPost("reserve/{roomId}")]
+        public async Task<IActionResult> ReserveRoom(int roomId)
+        {
+            var room = await _context.Rooms.FindAsync(roomId);
+            if (room == null)
+            {
+                return NotFound("Room not found");
+            }
+
+            var session = _stripeService.CreateCheckoutSession(room);
+            return Ok(new { sessionId = session.Id, checkoutUrl = session.Url });
+        }
+
+
 
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Room>>> GetRooms()

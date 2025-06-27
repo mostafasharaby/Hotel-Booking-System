@@ -55,6 +55,8 @@ namespace WebApiDemo
             });
 
 
+            builder.Services.AddSingleton<StripeService>();
+
             // builder.Services.AddIdentity<User, IdentityRole>().AddEntityFrameworkStores<AngularDbContext>().AddDefaultTokenProviders();
             builder.Services.AddIdentity<Guest, IdentityRole>(options =>
             {

@@ -8,8 +8,7 @@ import { RoomApiService } from '../Room/room-service/room-api.service';
 
 @Component({
   selector: 'app-filter',
-  templateUrl: './filter.component.html',
-  styleUrls: ['./filter.component.css']
+  templateUrl: './filter.component.html'
 })
 export class FilterComponent implements OnInit {
 
