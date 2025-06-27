@@ -1,11 +1,12 @@
+using AngularApi.Services;
+using Hotel_Backend.Models;
+using Hotel_Backend.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
-using System.Text;
 using Microsoft.OpenApi.Models;
-using Hotel_Backend.Models;
-using AngularApi.Services;
+using System.Text;
 
 namespace WebApiDemo
 {
@@ -52,7 +53,9 @@ namespace WebApiDemo
                     }
                 });
             });
-           
+
+            // stripe 
+            builder.Services.AddSingleton<StripeService>();
 
             // builder.Services.AddIdentity<User, IdentityRole>().AddEntityFrameworkStores<AngularDbContext>().AddDefaultTokenProviders();
             builder.Services.AddIdentity<Guest, IdentityRole>(options =>
@@ -85,14 +88,14 @@ namespace WebApiDemo
                 op.TokenValidationParameters = new TokenValidationParameters()
                 {
                     ValidateIssuer = true,
-                    ValidIssuer = builder.Configuration["Jwt:ValidIssuer"], 
+                    ValidIssuer = builder.Configuration["Jwt:ValidIssuer"],
                     ValidateAudience = true,
-                    ValidAudience = builder.Configuration["Jwt:ValidAudience"], 
+                    ValidAudience = builder.Configuration["Jwt:ValidAudience"],
                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Secret"])) // Corrected spelling
                 };
             });
 
-            
+
             builder.Services.AddCors(options =>
             {
                 options.AddPolicy("MyPolicy", builder =>
@@ -122,9 +125,9 @@ namespace WebApiDemo
                 });
             }
 
-            app.UseStaticFiles();  
+            app.UseStaticFiles();
             app.UseCors("MyPolicy");
-            app.UseAuthentication(); 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.MapControllers();
