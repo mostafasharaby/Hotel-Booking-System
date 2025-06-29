@@ -1,19 +1,20 @@
 /* tslint:disable:no-unused-variable */
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
-import { DebugElement } from '@angular/core';
-
+import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 import { NewsComponent } from './News.component';
+import { BlogService } from './news-service/blog.service';
+import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
 
 describe('NewsComponent', () => {
   let component: NewsComponent;
   let fixture: ComponentFixture<NewsComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ NewsComponent ]
+      declarations: [NewsComponent],
+      providers: [BlogService, provideHttpClient(), provideHttpClientTesting()]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

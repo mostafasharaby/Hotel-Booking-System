@@ -1,5 +1,6 @@
 using AngularApi.Services;
 using Hotel_Backend.Models;
+using Hotel_Backend.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;

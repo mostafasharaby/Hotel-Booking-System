@@ -1,9 +1,12 @@
 /* tslint:disable:no-unused-variable */
-import {  ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 
 import { RegisterComponent } from './register.component';
+import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
+import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 
 describe('ResgisterComponent', () => {
   let component: RegisterComponent;
@@ -11,9 +14,11 @@ describe('ResgisterComponent', () => {
 
   beforeEach((async () => {
     await TestBed.configureTestingModule({
-      declarations: [ RegisterComponent ]
+      declarations: [RegisterComponent],
+      providers: [ provideHttpClient(), provideHttpClientTesting()],
+      imports:[ReactiveFormsModule ]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {
