@@ -11,4 +11,11 @@ export class FooterComponent implements OnInit {
   ngOnInit() {
   }
 
+add ( x:number , y :number ): number {
+    return x + y;
+  }
+multiply ( x:number , y :number ): number {
+    return x * y;
+  }
+
 }

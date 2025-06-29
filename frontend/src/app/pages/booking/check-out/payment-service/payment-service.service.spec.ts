@@ -1,12 +1,14 @@
 /* tslint:disable:no-unused-variable */
 
-import { TestBed, async, inject } from '@angular/core/testing';
+import { TestBed, inject } from '@angular/core/testing';
 import { PaymentServiceService } from './payment-service.service';
+import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
 
 describe('Service: PaymentService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [PaymentServiceService]
+      providers: [PaymentServiceService ,provideHttpClient(), provideHttpClientTesting()],
     });
   });
 

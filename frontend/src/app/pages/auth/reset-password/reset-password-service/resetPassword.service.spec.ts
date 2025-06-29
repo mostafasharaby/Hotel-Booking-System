@@ -1,12 +1,14 @@
 /* tslint:disable:no-unused-variable */
 
-import { TestBed, async, inject } from '@angular/core/testing';
+import { TestBed, inject } from '@angular/core/testing';
 import { ResetPasswordService } from './resetPassword.service';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
+import { provideHttpClient } from '@angular/common/http';
 
 describe('Service: ResetPassword', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [ResetPasswordService]
+       providers: [ResetPasswordService, provideHttpClient(), provideHttpClientTesting()],
     });
   });
 

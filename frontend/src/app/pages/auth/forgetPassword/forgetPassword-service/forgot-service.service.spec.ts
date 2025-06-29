@@ -2,11 +2,14 @@
 
 import { TestBed,  inject } from '@angular/core/testing';
 import { ForgotServiceService } from './forgot-service.service';
+import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
 
 describe('Service: ForgotService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [ForgotServiceService]
+      providers: [ForgotServiceService , provideHttpClient(), provideHttpClientTesting()]
+      
     });
   });
 

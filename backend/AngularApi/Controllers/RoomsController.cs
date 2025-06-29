@@ -1,7 +1,6 @@
+using AngularApi.Services;
 using Hotel_Backend.Models;
 using Hotel_Backend.Services;
-using AngularApi.Services;
-
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -14,11 +13,11 @@ namespace Hotel_Backend.Controllers
         private readonly HotelDbContext _context;
         private readonly StripeService _stripeService;
         private readonly ICacheService _cacheService;
-        public RoomsController(HotelDbContext context, StripeService stripeService , ICacheService cache)
+        public RoomsController(HotelDbContext context, StripeService stripeService, ICacheService cache)
         {
             _context = context;
             _stripeService = stripeService;
-             _cacheService = cache;
+            _cacheService = cache;
         }
 
         [HttpPost("reserve/{roomId}")]
